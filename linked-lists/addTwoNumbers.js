@@ -1,8 +1,24 @@
-// Implement a simple linked list in Java without using any collections classes.
-// The list should be implemented using a single class such that each instance
-// represents a single node in the list, encapsulating the node's value and a
-// 'reference to the following node, as well as a convenience method to initialize a
-// 'whole list from an array of values. The class should implement the following interface.
+// In this exercise, we'll use your LinkedListNode implementation to represent
+// a non-negative integer such that each node in the list represents a single
+// digit (in base 10) and the digits are stored in reverse order.
+//
+// 1     == 1
+// 1→2   == 21
+// 1→2→3 == 321
+//
+//
+//
+// Write a program which takes as its input two such lists, a and b,
+// and adds them arithmetically one decimal at a time. Your algorithm
+// should traverse both lists together, adding the values for each node
+// and carrying the 1 to the next place when the sum >= 10. The result
+// should be returned as a linked list in the same format as the input lists.
+//
+//     Examples:
+//
+// 1→2     +   5→3   == 6→5      // 21 + 35 == 56
+// 1→2     +   1→2→3 == 2→4→3    // 21 + 321 == 342
+// 1→2→3   +   7→8→9 == 8→0→3→1  // 321 + 987 == 1308
 
 class LinkedListNode {
     constructor(value) {
@@ -138,26 +154,25 @@ class LinkedList {
     }
 }
 
-const myLinkedList = new LinkedList();
+const l1 = new LinkedList();
+const l2 = new LinkedList();
 
+l1.setValuesFromArray([1, 2]);
+l2.setValuesFromArray([3, 4]);
 
+const getReversedNumber = list => {
+    if (list instanceof LinkedList && list.length > 0) {
+        return parseInt(list.print().reverse().join(""));
+    }
 
-// myLinkedList.insert(1);
-// myLinkedList.insert(2);
-// myLinkedList.insert(3);
-// myLinkedList.insert(4);
+    return false;
+};
 
+const addTwoNumbers = (l1, l2) => {
+   const firstNum  = getReversedNumber(l1);
+   const secondNum = getReversedNumber(l2);
 
-// console.log(myLinkedList.print());
-//
-// console.log(myLinkedList.contains(3));
-//
-// myLinkedList.remove(4);
-//
-// console.log(myLinkedList.contains(3));
+   return typeof firstNum === 'number' && typeof secondNum === 'number' ? firstNum + secondNum : false;
+};
 
-console.log(myLinkedList.print());
-
-myLinkedList.setValuesFromArray([5, 6, 7, 8]);
-
-console.log(myLinkedList.print());
+console.log(addTwoNumbers(l1, l2));
